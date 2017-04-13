@@ -1,0 +1,10 @@
+{
+    "botToken": "bot token here",
+    "commandsBegin": "#",
+    "botName": "The name of the bot",
+    "channelToWelcomeUserIn": "number here",
+    "text": {
+        "x": 200,
+        "y": 200
+    }
+}
