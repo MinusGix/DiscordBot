@@ -105,7 +105,7 @@ addCommand('showwelcome', function(args) {
 });
 
 function getWelcomeImage(nick, callback) {
-    Jimp.read("./hello.png").then(function(image) {
+    Jimp.read(config.imageFile).then(function(image) {
         //Apparently it might be good to do this so it doesn't modify the original
         var img = image.clone();
         /*
@@ -125,21 +125,26 @@ function getWelcomeImage(nick, callback) {
 
         Jimp.loadFont(Jimp.FONT_SANS_32_BLACK).then(function(font) {
             //200, 200 is the x and y position. x and y starts at 0,0 of the image
-            img.print(font, 200, 200, '@' + nick);
-            //console.log(img.bitmap.data.)
+            img.print(font, config.text.x, config.text.y, config.text.before + nick + config.text.after);
+
             img.getBuffer(Jimp.AUTO, function(err, buff) {
                 if (err) {
-                    throw err;
+                    console.log('ERROR IN GENERATING BUFFER FOR IMAGE:');
+                    console.log(err);
+                    return;
                 }
                 imgurUploader(buff, { title: 'Hello!' }).then(data => {
                     callback(data);
                 });
             });
+        }).catch(function(err) {
+            console.log('ERROR IN LOADING FONT FOR IMAGE TEXT:');
+            console.log(err);
         });
     }).catch(function(err) {
-        //Handle the error
+        console.log('ERROR IN LOADING FILE:');
+        console.log(err);
     });
 }
 
 client.login(config.botToken);
-console.log(config.channelToWelcomeUserIn)

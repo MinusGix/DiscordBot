@@ -3,8 +3,11 @@
     "commandsBegin": "#",
     "botName": "The name of the bot",
     "channelToWelcomeUserIn": "number here",
+    "imageFile": "./hello.png",
     "text": {
         "x": 200,
-        "y": 200
+        "y": 200,
+        "before": "@",
+        "after": ""
     }
 }
